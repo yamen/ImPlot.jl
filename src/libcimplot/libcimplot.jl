@@ -1,18 +1,25 @@
 module LibCImPlot
 
-using CImPlot_jll
-#export CImPlot_jll
+using CImGui.LibCImGui.CImGui_jll
+using CImGui.LibCImGui
 
 using CEnum
-import CImGui: ImVec2, ImVec4, ImGuiMouseButton, ImGuiKeyModFlags
-import CImGui.LibCImGui: ImGuiContext
+# using CImGui: ImVec2, ImVec4, ImGuiMouseButton, ImGuiKeyModFlags
+# import CImGui.LibCImGui:ImGuiContext
 
-include("libcimplot_common.jl")
-include("libcimplot_api.jl")
+include(joinpath(@__DIR__, "..", "..", "gen", "libcimplot_common.jl"))
+include(joinpath(@__DIR__, "..", "..", "gen", "libcimplot_api.jl"))
 
-for i in [ImPlotFlags, ImPlotAxisFlags]
-    for j in instances(i)
-        @eval export $(Symbol(j))
+# for i in [ImPlotFlags_, ImPlotAxisFlags_]
+#     for j in instances(i)
+#         @eval export $(Symbol(j))
+#     end
+# end
+
+# this should export all flags etc
+foreach(names(@__MODULE__, all=true)) do s
+    if startswith(string(s), "ImPlot")
+        @eval export $s
     end
 end
 

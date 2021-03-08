@@ -1,17 +1,16 @@
 using Clang
 
-using CImPlot.LibCImPlot.CImPlot_jll
+using CImGui.LibCImGui.CImGui_jll
 
-const CIMGUI_H = joinpath(dirname(CImPlot_jll.libcimplot_path), "..", "include", "cimplot.h") |> normpath
+const CIMPLOT_H = joinpath(dirname(CImGui_jll.libcimgui_path), "..", "include", "cimplot.h") |> normpath
 
-# create a work context
 ctx = DefaultContext()
 
 # parse headers
-parse_headers!(ctx, [CIMGUI_H], args=[map(x->"-I"*x, find_std_headers())..., "-DCIMGUI_DEFINE_ENUMS_AND_STRUCTS"], includes=[LLVM_INCLUDE])
+parse_headers!(ctx, [CIMPLOT_H], args=[map(x -> "-I" * x, find_std_headers())..., "-DCIMGUI_DEFINE_ENUMS_AND_STRUCTS"], includes=[LLVM_INCLUDE])
 
 # settings
-ctx.libname = "libcimplot"
+ctx.libname = "libcimgui"
 ctx.options["is_function_strictly_typed"] = false
 ctx.options["is_struct_mutable"] = false
 
@@ -37,6 +36,18 @@ for trans_unit in ctx.trans_units
 
         wrap!(ctx, child)
     end
+
+    # Remove leading 'ImPlot_' from function names
+    @info "Renaming functions"
+    for (i, entry) in enumerate(ctx.api_buffer)
+        if entry.head == :function
+            name = string(entry.args[1].args[1])
+            if startswith(name, "ImPlot_")
+                ctx.api_buffer[i].args[1].args[1] = Symbol(chop(name; head=7, tail=0))
+            end
+        end
+    end
+
     @info "writing $(api_file)"
     println(api_stream, "# Julia wrapper for header: $(basename(header))")
     println(api_stream, "# Automatically generated using Clang.jl\n")

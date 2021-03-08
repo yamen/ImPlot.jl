@@ -67,7 +67,7 @@ try
         
         # show a simple window that we create ourselves.
         # we use a Begin/End pair to created a named window.
-        @cstatic f=Cfloat(0.0) counter=Cint(0) begin
+        @cstatic f = Cfloat(0.0) counter = Cint(0) begin
             CImGui.Begin("Hello, world!")
             @c CImGui.Checkbox("Show ImPlot Demo", &show_demo_window)
             CImGui.Text(@sprintf("Application average %.3f ms/frame (%.1f FPS)",
@@ -89,7 +89,7 @@ try
         GLFW.SwapBuffers(window)
     end
 catch e
-    @error "Error in renderloop!" exception=e
+    @error "Error in renderloop!" exception = e
     Base.show_backtrace(stderr, catch_backtrace())
 finally
     ImGui_ImplOpenGL3_Shutdown()
