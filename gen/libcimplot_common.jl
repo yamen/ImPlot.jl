@@ -8,6 +8,225 @@ const CIMGUIPLOT_INCLUDED = nothing
 # Skipping MacroDefinition: CIMGUI_API EXTERN API
 # Skipping MacroDefinition: CONST const
 
+const ImPlotMarker = Cint
+
+struct ImPlotNextItemData
+    Colors::NTuple{5,ImVec4}
+    LineWeight::Cfloat
+    Marker::ImPlotMarker
+    MarkerSize::Cfloat
+    MarkerWeight::Cfloat
+    FillAlpha::Cfloat
+    ErrorBarSize::Cfloat
+    ErrorBarWeight::Cfloat
+    DigitalBitHeight::Cfloat
+    DigitalBitGap::Cfloat
+    RenderLine::Bool
+    RenderFill::Bool
+    RenderMarkerLine::Bool
+    RenderMarkerFill::Bool
+    HasHidden::Bool
+    Hidden::Bool
+    HiddenCond::ImGuiCond
+end
+
+struct ImPlotTick
+    PlotPos::Cdouble
+    PixelPos::Cfloat
+    LabelSize::ImVec2
+    TextOffset::Cint
+    Major::Bool
+    ShowLabel::Bool
+    Level::Cint
+end
+
+struct ImVector_ImPlotTick
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImPlotTick}
+end
+
+struct ImPlotTickCollection
+    Ticks::ImVector_ImPlotTick
+    TextBuffer::ImGuiTextBuffer
+    TotalWidth::Cfloat
+    TotalHeight::Cfloat
+    MaxWidth::Cfloat
+    MaxHeight::Cfloat
+    Size::Cint
+end
+
+struct ImPlotAnnotation
+    Pos::ImVec2
+    Offset::ImVec2
+    ColorBg::ImU32
+    ColorFg::ImU32
+    TextOffset::Cint
+    Clamp::Bool
+end
+
+struct ImVector_ImPlotAnnotation
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImPlotAnnotation}
+end
+
+struct ImPlotAnnotationCollection
+    Annotations::ImVector_ImPlotAnnotation
+    TextBuffer::ImGuiTextBuffer
+    Size::Cint
+end
+
+struct ImPlotPointError
+    X::Cdouble
+    Y::Cdouble
+    Neg::Cdouble
+    Pos::Cdouble
+end
+
+struct ImPlotColormapMod
+    Colormap::Ptr{ImVec4}
+    ColormapSize::Cint
+end
+
+struct ImPlotTime
+    S::Cint
+    Us::Cint
+end
+
+const ImPlotDateFmt = Cint
+const ImPlotTimeFmt = Cint
+
+struct ImPlotDateTimeFmt
+    Date::ImPlotDateFmt
+    Time::ImPlotTimeFmt
+    UseISO8601::Bool
+    Use24HourClock::Bool
+end
+
+struct ImBufferWriter
+    Buffer::Cstring
+    Size::Cint
+    Pos::Cint
+end
+
+struct ImPlotRange
+    Min::Cdouble
+    Max::Cdouble
+end
+
+struct ImPlotNextPlotData
+    XRangeCond::ImGuiCond
+    YRangeCond::NTuple{3,ImGuiCond}
+    X::ImPlotRange
+    Y::NTuple{3,ImPlotRange}
+    HasXRange::Bool
+    HasYRange::NTuple{3,Bool}
+    ShowDefaultTicksX::Bool
+    ShowDefaultTicksY::NTuple{3,Bool}
+    FitX::Bool
+    FitY::NTuple{3,Bool}
+    LinkedXmin::Ptr{Cdouble}
+    LinkedXmax::Ptr{Cdouble}
+    LinkedYmin::NTuple{3,Ptr{Cdouble}}
+    LinkedYmax::NTuple{3,Ptr{Cdouble}}
+end
+
+const ImPlotFlags = Cint
+const ImPlotAxisFlags = Cint
+const ImPlotOrientation = Cint
+
+struct ImPlotAxis
+    Flags::ImPlotAxisFlags
+    PreviousFlags::ImPlotAxisFlags
+    Range::ImPlotRange
+    Pixels::Cfloat
+    Orientation::ImPlotOrientation
+    Dragging::Bool
+    ExtHovered::Bool
+    AllHovered::Bool
+    Present::Bool
+    HasRange::Bool
+    LinkedMin::Ptr{Cdouble}
+    LinkedMax::Ptr{Cdouble}
+    PickerTimeMin::ImPlotTime
+    PickerTimeMax::ImPlotTime
+    PickerLevel::Cint
+    ColorMaj::ImU32
+    ColorMin::ImU32
+    ColorTxt::ImU32
+    RangeCond::ImGuiCond
+    HoverRect::ImRect
+end
+
+struct ImVector_int
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{Cint}
+end
+
+struct ImPlotLegendData
+    Indices::ImVector_int
+    Labels::ImGuiTextBuffer
+end
+
+struct ImPlotItem
+    ID::ImGuiID
+    Color::ImVec4
+    NameOffset::Cint
+    Show::Bool
+    LegendHovered::Bool
+    SeenThisFrame::Bool
+end
+
+struct ImVector_ImPlotItem
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImPlotItem}
+end
+
+struct ImPool_ImPlotItem
+    Buf::ImVector_ImPlotItem
+    Map::ImGuiStorage
+    FreeIdx::ImPoolIdx
+end
+
+const ImPlotLocation = Cint
+
+struct ImPlotPlot
+    ID::ImGuiID
+    Flags::ImPlotFlags
+    PreviousFlags::ImPlotFlags
+    XAxis::ImPlotAxis
+    YAxis::NTuple{3,ImPlotAxis}
+    LegendData::ImPlotLegendData
+    Items::ImPool_ImPlotItem
+    SelectStart::ImVec2
+    QueryStart::ImVec2
+    QueryRect::ImRect
+    Selecting::Bool
+    Querying::Bool
+    Queried::Bool
+    DraggingQuery::Bool
+    LegendHovered::Bool
+    LegendOutside::Bool
+    LegendFlipSideNextFrame::Bool
+    FrameHovered::Bool
+    PlotHovered::Bool
+    ColormapIdx::Cint
+    CurrentYAxis::Cint
+    MousePosLocation::ImPlotLocation
+    LegendLocation::ImPlotLocation
+    LegendOrientation::ImPlotOrientation
+    FrameRect::ImRect
+    CanvasRect::ImRect
+    PlotRect::ImRect
+    AxesRect::ImRect
+end
+
+const ImPlotAxisColor = Cvoid
+const ImPlotAxisState = Cvoid
+
 struct ImPlotInputMap
     PanButton::ImGuiMouseButton
     PanMod::ImGuiKeyModFlags
@@ -58,11 +277,6 @@ struct ImPlotStyle
     Use24HourClock::Bool
 end
 
-struct ImPlotRange
-    Min::Cdouble
-    Max::Cdouble
-end
-
 struct ImPlotLimits
     X::ImPlotRange
     Y::ImPlotRange
@@ -73,16 +287,136 @@ struct ImPlotPoint
     y::Cdouble
 end
 
-const ImPlotContext = Cvoid
-const ImPlotFlags = Cint
-const ImPlotAxisFlags = Cint
+struct ImVector_ImPlotPlot
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImPlotPlot}
+end
+
+struct ImPool_ImPlotPlot
+    Buf::ImVector_ImPlotPlot
+    Map::ImGuiStorage
+    FreeIdx::ImPoolIdx
+end
+
+const ImPlotScale = Cint
+
+struct ImVector_ImGuiColorMod
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImGuiColorMod}
+end
+
+struct ImVector_ImGuiStyleMod
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImGuiStyleMod}
+end
+
+struct ImVector_ImPlotColormapMod
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImPlotColormapMod}
+end
+
+struct ImPlotContext
+    Plots::ImPool_ImPlotPlot
+    CurrentPlot::Ptr{ImPlotPlot}
+    CurrentItem::Ptr{ImPlotItem}
+    PreviousItem::Ptr{ImPlotItem}
+    XTicks::ImPlotTickCollection
+    YTicks::NTuple{3,ImPlotTickCollection}
+    YAxisReference::NTuple{3,Cfloat}
+    Annotations::ImPlotAnnotationCollection
+    Scales::NTuple{3,ImPlotScale}
+    PixelRange::NTuple{3,ImRect}
+    Mx::Cdouble
+    My::NTuple{3,Cdouble}
+    LogDenX::Cdouble
+    LogDenY::NTuple{3,Cdouble}
+    ExtentsX::ImPlotRange
+    ExtentsY::NTuple{3,ImPlotRange}
+    FitThisFrame::Bool
+    FitX::Bool
+    FitY::NTuple{3,Bool}
+    RenderX::Bool
+    RenderY::NTuple{3,Bool}
+    ChildWindowMade::Bool
+    Style::ImPlotStyle
+    ColorModifiers::ImVector_ImGuiColorMod
+    StyleModifiers::ImVector_ImGuiStyleMod
+    Colormap::Ptr{ImVec4}
+    ColormapSize::Cint
+    ColormapModifiers::ImVector_ImPlotColormapMod
+    Tm::Cint
+    VisibleItemCount::Cint
+    DigitalPlotItemCnt::Cint
+    DigitalPlotOffset::Cint
+    NextPlotData::ImPlotNextPlotData
+    NextItemData::ImPlotNextItemData
+    InputMap::ImPlotInputMap
+    MousePos::NTuple{3,ImPlotPoint}
+end
+
 const ImPlotCol = Cint
 const ImPlotStyleVar = Cint
-const ImPlotMarker = Cint
 const ImPlotColormap = Cint
-const ImPlotLocation = Cint
-const ImPlotOrientation = Cint
 const ImPlotYAxis = Cint
+const ImPlotTimeUnit = Cint
+
+struct ImVector_ImS16
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImS16}
+end
+
+struct ImVector_ImS32
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImS32}
+end
+
+struct ImVector_ImS64
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImS64}
+end
+
+struct ImVector_ImS8
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImS8}
+end
+
+struct ImVector_ImU16
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImU16}
+end
+
+struct ImVector_ImU32
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImU32}
+end
+
+struct ImVector_ImU64
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImU64}
+end
+
+struct ImVector_ImU8
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{ImU8}
+end
+
+struct ImVector_double
+    Size::Cint
+    Capacity::Cint
+    Data::Ptr{Cdouble}
+end
 
 @cenum ImPlotFlags_::UInt32 begin
     ImPlotFlags_None = 0
@@ -228,3 +562,45 @@ end
     ImPlotYAxis_3 = 2
 end
 
+@cenum ImPlotScale_::UInt32 begin
+    ImPlotScale_LinLin = 0
+    ImPlotScale_LogLin = 1
+    ImPlotScale_LinLog = 2
+    ImPlotScale_LogLog = 3
+end
+
+@cenum ImPlotTimeUnit_::UInt32 begin
+    ImPlotTimeUnit_Us = 0
+    ImPlotTimeUnit_Ms = 1
+    ImPlotTimeUnit_S = 2
+    ImPlotTimeUnit_Min = 3
+    ImPlotTimeUnit_Hr = 4
+    ImPlotTimeUnit_Day = 5
+    ImPlotTimeUnit_Mo = 6
+    ImPlotTimeUnit_Yr = 7
+    ImPlotTimeUnit_COUNT = 8
+end
+
+@cenum ImPlotDateFmt_::UInt32 begin
+    ImPlotDateFmt_None = 0
+    ImPlotDateFmt_DayMo = 1
+    ImPlotDateFmt_DayMoYr = 2
+    ImPlotDateFmt_MoYr = 3
+    ImPlotDateFmt_Mo = 4
+    ImPlotDateFmt_Yr = 5
+end
+
+@cenum ImPlotTimeFmt_::UInt32 begin
+    ImPlotTimeFmt_None = 0
+    ImPlotTimeFmt_Us = 1
+    ImPlotTimeFmt_SUs = 2
+    ImPlotTimeFmt_SMs = 3
+    ImPlotTimeFmt_S = 4
+    ImPlotTimeFmt_HrMinSMs = 5
+    ImPlotTimeFmt_HrMinS = 6
+    ImPlotTimeFmt_HrMin = 7
+    ImPlotTimeFmt_Hr = 8
+end
+
+
+const ImPlotPoint_getter = Ptr{Cvoid}

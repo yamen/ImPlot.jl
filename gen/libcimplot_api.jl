@@ -1222,8 +1222,8 @@ function GetColormapColor(pOut, index)
     ccall((:ImPlot_GetColormapColor, libcimgui), Cvoid, (Ptr{ImVec4}, Cint), pOut, index)
 end
 
-function LerpColormap(pOut, t)
-    ccall((:ImPlot_LerpColormap, libcimgui), Cvoid, (Ptr{ImVec4}, Cfloat), pOut, t)
+function LerpColormapFloat(pOut, t)
+    ccall((:ImPlot_LerpColormapFloat, libcimgui), Cvoid, (Ptr{ImVec4}, Cfloat), pOut, t)
 end
 
 function NextColormapColor(pOut)
@@ -1282,26 +1282,706 @@ function ShowDemoWindow(p_open)
     ccall((:ImPlot_ShowDemoWindow, libcimgui), Cvoid, (Ptr{Bool},), p_open)
 end
 
+function ImLog10Float(x)
+    ccall((:ImPlot_ImLog10Float, libcimgui), Cfloat, (Cfloat,), x)
+end
+
+function ImLog10double(x)
+    ccall((:ImPlot_ImLog10double, libcimgui), Cdouble, (Cdouble,), x)
+end
+
+function ImRemapFloat(x, x0, x1, y0, y1)
+    ccall((:ImPlot_ImRemapFloat, libcimgui), Cfloat, (Cfloat, Cfloat, Cfloat, Cfloat, Cfloat), x, x0, x1, y0, y1)
+end
+
+function ImRemapdouble(x, x0, x1, y0, y1)
+    ccall((:ImPlot_ImRemapdouble, libcimgui), Cdouble, (Cdouble, Cdouble, Cdouble, Cdouble, Cdouble), x, x0, x1, y0, y1)
+end
+
+function ImRemapS8(x, x0, x1, y0, y1)
+    ccall((:ImPlot_ImRemapS8, libcimgui), ImS8, (ImS8, ImS8, ImS8, ImS8, ImS8), x, x0, x1, y0, y1)
+end
+
+function ImRemapU8(x, x0, x1, y0, y1)
+    ccall((:ImPlot_ImRemapU8, libcimgui), ImU8, (ImU8, ImU8, ImU8, ImU8, ImU8), x, x0, x1, y0, y1)
+end
+
+function ImRemapS16(x, x0, x1, y0, y1)
+    ccall((:ImPlot_ImRemapS16, libcimgui), ImS16, (ImS16, ImS16, ImS16, ImS16, ImS16), x, x0, x1, y0, y1)
+end
+
+function ImRemapU16(x, x0, x1, y0, y1)
+    ccall((:ImPlot_ImRemapU16, libcimgui), ImU16, (ImU16, ImU16, ImU16, ImU16, ImU16), x, x0, x1, y0, y1)
+end
+
+function ImRemapS32(x, x0, x1, y0, y1)
+    ccall((:ImPlot_ImRemapS32, libcimgui), ImS32, (ImS32, ImS32, ImS32, ImS32, ImS32), x, x0, x1, y0, y1)
+end
+
+function ImRemapU32(x, x0, x1, y0, y1)
+    ccall((:ImPlot_ImRemapU32, libcimgui), ImU32, (ImU32, ImU32, ImU32, ImU32, ImU32), x, x0, x1, y0, y1)
+end
+
+function ImRemapS64(x, x0, x1, y0, y1)
+    ccall((:ImPlot_ImRemapS64, libcimgui), ImS64, (ImS64, ImS64, ImS64, ImS64, ImS64), x, x0, x1, y0, y1)
+end
+
+function ImRemapU64(x, x0, x1, y0, y1)
+    ccall((:ImPlot_ImRemapU64, libcimgui), ImU64, (ImU64, ImU64, ImU64, ImU64, ImU64), x, x0, x1, y0, y1)
+end
+
+function ImPosMod(l, r)
+    ccall((:ImPlot_ImPosMod, libcimgui), Cint, (Cint, Cint), l, r)
+end
+
+function ImNanOrInf(val)
+    ccall((:ImPlot_ImNanOrInf, libcimgui), Bool, (Cdouble,), val)
+end
+
+function ImConstrainNan(val)
+    ccall((:ImPlot_ImConstrainNan, libcimgui), Cdouble, (Cdouble,), val)
+end
+
+function ImConstrainInf(val)
+    ccall((:ImPlot_ImConstrainInf, libcimgui), Cdouble, (Cdouble,), val)
+end
+
+function ImConstrainLog(val)
+    ccall((:ImPlot_ImConstrainLog, libcimgui), Cdouble, (Cdouble,), val)
+end
+
+function ImConstrainTime(val)
+    ccall((:ImPlot_ImConstrainTime, libcimgui), Cdouble, (Cdouble,), val)
+end
+
+function ImAlmostEqual(v1, v2, ulp)
+    ccall((:ImPlot_ImAlmostEqual, libcimgui), Bool, (Cdouble, Cdouble, Cint), v1, v2, ulp)
+end
+
+function ImBufferWriter_ImBufferWriter(buffer, size)
+    ccall((:ImBufferWriter_ImBufferWriter, libcimgui), Ptr{ImBufferWriter}, (Cstring, Cint), buffer, size)
+end
+
+function ImBufferWriter_destroy(self)
+    ccall((:ImBufferWriter_destroy, libcimgui), Cvoid, (Ptr{ImBufferWriter},), self)
+end
+
+function ImPlotDateTimeFmt_ImPlotDateTimeFmt(date_fmt, time_fmt, use_24_hr_clk, use_iso_8601)
+    ccall((:ImPlotDateTimeFmt_ImPlotDateTimeFmt, libcimgui), Ptr{ImPlotDateTimeFmt}, (ImPlotDateFmt, ImPlotTimeFmt, Bool, Bool), date_fmt, time_fmt, use_24_hr_clk, use_iso_8601)
+end
+
+function ImPlotDateTimeFmt_destroy(self)
+    ccall((:ImPlotDateTimeFmt_destroy, libcimgui), Cvoid, (Ptr{ImPlotDateTimeFmt},), self)
+end
+
+function ImPlotTime_ImPlotTimeNil()
+    ccall((:ImPlotTime_ImPlotTimeNil, libcimgui), Ptr{ImPlotTime}, ())
+end
+
+function ImPlotTime_destroy(self)
+    ccall((:ImPlotTime_destroy, libcimgui), Cvoid, (Ptr{ImPlotTime},), self)
+end
+
+function ImPlotTime_ImPlotTimetime_t(s, us)
+    ccall((:ImPlotTime_ImPlotTimetime_t, libcimgui), Ptr{ImPlotTime}, (Cint, Cint), s, us)
+end
+
+function ImPlotTime_RollOver(self)
+    ccall((:ImPlotTime_RollOver, libcimgui), Cvoid, (Ptr{ImPlotTime},), self)
+end
+
+function ImPlotTime_ToDouble(self)
+    ccall((:ImPlotTime_ToDouble, libcimgui), Cdouble, (Ptr{ImPlotTime},), self)
+end
+
+function ImPlotTime_FromDouble(t)
+    ccall((:ImPlotTime_FromDouble, libcimgui), ImPlotTime, (Cdouble,), t)
+end
+
+function ImPlotColormapMod_ImPlotColormapMod(colormap, colormap_size)
+    ccall((:ImPlotColormapMod_ImPlotColormapMod, libcimgui), Ptr{ImPlotColormapMod}, (Ptr{ImVec4}, Cint), colormap, colormap_size)
+end
+
+function ImPlotColormapMod_destroy(self)
+    ccall((:ImPlotColormapMod_destroy, libcimgui), Cvoid, (Ptr{ImPlotColormapMod},), self)
+end
+
+function ImPlotPointError_ImPlotPointError(x, y, neg, pos)
+    ccall((:ImPlotPointError_ImPlotPointError, libcimgui), Ptr{ImPlotPointError}, (Cdouble, Cdouble, Cdouble, Cdouble), x, y, neg, pos)
+end
+
+function ImPlotPointError_destroy(self)
+    ccall((:ImPlotPointError_destroy, libcimgui), Cvoid, (Ptr{ImPlotPointError},), self)
+end
+
+function ImPlotAnnotationCollection_ImPlotAnnotationCollection()
+    ccall((:ImPlotAnnotationCollection_ImPlotAnnotationCollection, libcimgui), Ptr{ImPlotAnnotationCollection}, ())
+end
+
+function ImPlotAnnotationCollection_destroy(self)
+    ccall((:ImPlotAnnotationCollection_destroy, libcimgui), Cvoid, (Ptr{ImPlotAnnotationCollection},), self)
+end
+
+function ImPlotAnnotationCollection_GetText(self, idx)
+    ccall((:ImPlotAnnotationCollection_GetText, libcimgui), Cstring, (Ptr{ImPlotAnnotationCollection}, Cint), self, idx)
+end
+
+function ImPlotAnnotationCollection_Reset(self)
+    ccall((:ImPlotAnnotationCollection_Reset, libcimgui), Cvoid, (Ptr{ImPlotAnnotationCollection},), self)
+end
+
+function ImPlotTick_ImPlotTick(value, major, show_label)
+    ccall((:ImPlotTick_ImPlotTick, libcimgui), Ptr{ImPlotTick}, (Cdouble, Bool, Bool), value, major, show_label)
+end
+
+function ImPlotTick_destroy(self)
+    ccall((:ImPlotTick_destroy, libcimgui), Cvoid, (Ptr{ImPlotTick},), self)
+end
+
+function ImPlotTickCollection_ImPlotTickCollection()
+    ccall((:ImPlotTickCollection_ImPlotTickCollection, libcimgui), Ptr{ImPlotTickCollection}, ())
+end
+
+function ImPlotTickCollection_destroy(self)
+    ccall((:ImPlotTickCollection_destroy, libcimgui), Cvoid, (Ptr{ImPlotTickCollection},), self)
+end
+
+function ImPlotTickCollection_AppendPlotTick(self, tick)
+    ccall((:ImPlotTickCollection_AppendPlotTick, libcimgui), Cvoid, (Ptr{ImPlotTickCollection}, ImPlotTick), self, tick)
+end
+
+function ImPlotTickCollection_Appenddouble(self, value, major, show_label, labeler)
+    ccall((:ImPlotTickCollection_Appenddouble, libcimgui), Cvoid, (Ptr{ImPlotTickCollection}, Cdouble, Bool, Bool, Ptr{Cvoid}), self, value, major, show_label, labeler)
+end
+
+function ImPlotTickCollection_GetText(self, idx)
+    ccall((:ImPlotTickCollection_GetText, libcimgui), Cstring, (Ptr{ImPlotTickCollection}, Cint), self, idx)
+end
+
+function ImPlotTickCollection_Reset(self)
+    ccall((:ImPlotTickCollection_Reset, libcimgui), Cvoid, (Ptr{ImPlotTickCollection},), self)
+end
+
+function ImPlotAxis_ImPlotAxis()
+    ccall((:ImPlotAxis_ImPlotAxis, libcimgui), Ptr{ImPlotAxis}, ())
+end
+
+function ImPlotAxis_destroy(self)
+    ccall((:ImPlotAxis_destroy, libcimgui), Cvoid, (Ptr{ImPlotAxis},), self)
+end
+
+function ImPlotAxis_SetMin(self, _min)
+    ccall((:ImPlotAxis_SetMin, libcimgui), Bool, (Ptr{ImPlotAxis}, Cdouble), self, _min)
+end
+
+function ImPlotAxis_SetMax(self, _max)
+    ccall((:ImPlotAxis_SetMax, libcimgui), Bool, (Ptr{ImPlotAxis}, Cdouble), self, _max)
+end
+
+function ImPlotAxis_SetRangedouble(self, _min, _max)
+    ccall((:ImPlotAxis_SetRangedouble, libcimgui), Cvoid, (Ptr{ImPlotAxis}, Cdouble, Cdouble), self, _min, _max)
+end
+
+function ImPlotAxis_SetRangePlotRange(self, range)
+    ccall((:ImPlotAxis_SetRangePlotRange, libcimgui), Cvoid, (Ptr{ImPlotAxis}, ImPlotRange), self, range)
+end
+
+function ImPlotAxis_SetAspect(self, unit_per_pix)
+    ccall((:ImPlotAxis_SetAspect, libcimgui), Cvoid, (Ptr{ImPlotAxis}, Cdouble), self, unit_per_pix)
+end
+
+function ImPlotAxis_GetAspect(self)
+    ccall((:ImPlotAxis_GetAspect, libcimgui), Cdouble, (Ptr{ImPlotAxis},), self)
+end
+
+function ImPlotAxis_Constrain(self)
+    ccall((:ImPlotAxis_Constrain, libcimgui), Cvoid, (Ptr{ImPlotAxis},), self)
+end
+
+function ImPlotAxis_IsLabeled(self)
+    ccall((:ImPlotAxis_IsLabeled, libcimgui), Bool, (Ptr{ImPlotAxis},), self)
+end
+
+function ImPlotAxis_IsInverted(self)
+    ccall((:ImPlotAxis_IsInverted, libcimgui), Bool, (Ptr{ImPlotAxis},), self)
+end
+
+function ImPlotAxis_IsAlwaysLocked(self)
+    ccall((:ImPlotAxis_IsAlwaysLocked, libcimgui), Bool, (Ptr{ImPlotAxis},), self)
+end
+
+function ImPlotAxis_IsLockedMin(self)
+    ccall((:ImPlotAxis_IsLockedMin, libcimgui), Bool, (Ptr{ImPlotAxis},), self)
+end
+
+function ImPlotAxis_IsLockedMax(self)
+    ccall((:ImPlotAxis_IsLockedMax, libcimgui), Bool, (Ptr{ImPlotAxis},), self)
+end
+
+function ImPlotAxis_IsLocked(self)
+    ccall((:ImPlotAxis_IsLocked, libcimgui), Bool, (Ptr{ImPlotAxis},), self)
+end
+
+function ImPlotAxis_IsTime(self)
+    ccall((:ImPlotAxis_IsTime, libcimgui), Bool, (Ptr{ImPlotAxis},), self)
+end
+
+function ImPlotAxis_IsLog(self)
+    ccall((:ImPlotAxis_IsLog, libcimgui), Bool, (Ptr{ImPlotAxis},), self)
+end
+
+function ImPlotItem_ImPlotItem()
+    ccall((:ImPlotItem_ImPlotItem, libcimgui), Ptr{ImPlotItem}, ())
+end
+
+function ImPlotItem_destroy(self)
+    ccall((:ImPlotItem_destroy, libcimgui), Cvoid, (Ptr{ImPlotItem},), self)
+end
+
+function ImPlotLegendData_Reset(self)
+    ccall((:ImPlotLegendData_Reset, libcimgui), Cvoid, (Ptr{ImPlotLegendData},), self)
+end
+
+function ImPlotPlot_ImPlotPlot()
+    ccall((:ImPlotPlot_ImPlotPlot, libcimgui), Ptr{ImPlotPlot}, ())
+end
+
+function ImPlotPlot_destroy(self)
+    ccall((:ImPlotPlot_destroy, libcimgui), Cvoid, (Ptr{ImPlotPlot},), self)
+end
+
+function ImPlotPlot_GetLegendCount(self)
+    ccall((:ImPlotPlot_GetLegendCount, libcimgui), Cint, (Ptr{ImPlotPlot},), self)
+end
+
+function ImPlotPlot_GetLegendItem(self, i)
+    ccall((:ImPlotPlot_GetLegendItem, libcimgui), Ptr{ImPlotItem}, (Ptr{ImPlotPlot}, Cint), self, i)
+end
+
+function ImPlotPlot_GetLegendLabel(self, i)
+    ccall((:ImPlotPlot_GetLegendLabel, libcimgui), Cstring, (Ptr{ImPlotPlot}, Cint), self, i)
+end
+
+function ImPlotPlot_IsLocked(self)
+    ccall((:ImPlotPlot_IsLocked, libcimgui), Bool, (Ptr{ImPlotPlot},), self)
+end
+
+function ImPlotNextPlotData_ImPlotNextPlotData()
+    ccall((:ImPlotNextPlotData_ImPlotNextPlotData, libcimgui), Ptr{ImPlotNextPlotData}, ())
+end
+
+function ImPlotNextPlotData_destroy(self)
+    ccall((:ImPlotNextPlotData_destroy, libcimgui), Cvoid, (Ptr{ImPlotNextPlotData},), self)
+end
+
+function ImPlotNextPlotData_Reset(self)
+    ccall((:ImPlotNextPlotData_Reset, libcimgui), Cvoid, (Ptr{ImPlotNextPlotData},), self)
+end
+
+function ImPlotNextItemData_ImPlotNextItemData()
+    ccall((:ImPlotNextItemData_ImPlotNextItemData, libcimgui), Ptr{ImPlotNextItemData}, ())
+end
+
+function ImPlotNextItemData_destroy(self)
+    ccall((:ImPlotNextItemData_destroy, libcimgui), Cvoid, (Ptr{ImPlotNextItemData},), self)
+end
+
+function ImPlotNextItemData_Reset(self)
+    ccall((:ImPlotNextItemData_Reset, libcimgui), Cvoid, (Ptr{ImPlotNextItemData},), self)
+end
+
+function Initialize(ctx)
+    ccall((:ImPlot_Initialize, libcimgui), Cvoid, (Ptr{ImPlotContext},), ctx)
+end
+
+function Reset(ctx)
+    ccall((:ImPlot_Reset, libcimgui), Cvoid, (Ptr{ImPlotContext},), ctx)
+end
+
+function GetPlot(title)
+    ccall((:ImPlot_GetPlot, libcimgui), Ptr{ImPlotPlot}, (Cstring,), title)
+end
+
+function GetCurrentPlot()
+    ccall((:ImPlot_GetCurrentPlot, libcimgui), Ptr{ImPlotPlot}, ())
+end
+
+function BustPlotCache()
+    ccall((:ImPlot_BustPlotCache, libcimgui), Cvoid, ())
+end
+
+function ShowPlotContextMenu(plot)
+    ccall((:ImPlot_ShowPlotContextMenu, libcimgui), Cvoid, (Ptr{ImPlotPlot},), plot)
+end
+
+function BeginItem(label_id, recolor_from)
+    ccall((:ImPlot_BeginItem, libcimgui), Bool, (Cstring, ImPlotCol), label_id, recolor_from)
+end
+
+function EndItem()
+    ccall((:ImPlot_EndItem, libcimgui), Cvoid, ())
+end
+
+function RegisterOrGetItem(label_id, just_created)
+    ccall((:ImPlot_RegisterOrGetItem, libcimgui), Ptr{ImPlotItem}, (Cstring, Ptr{Bool}), label_id, just_created)
+end
+
+function GetItem(label_id)
+    ccall((:ImPlot_GetItem, libcimgui), Ptr{ImPlotItem}, (Cstring,), label_id)
+end
+
+function GetCurrentItem()
+    ccall((:ImPlot_GetCurrentItem, libcimgui), Ptr{ImPlotItem}, ())
+end
+
+function BustItemCache()
+    ccall((:ImPlot_BustItemCache, libcimgui), Cvoid, ())
+end
+
+function GetCurrentYAxis()
+    ccall((:ImPlot_GetCurrentYAxis, libcimgui), Cint, ())
+end
+
+function UpdateAxisColors(axis_flag, axis)
+    ccall((:ImPlot_UpdateAxisColors, libcimgui), Cvoid, (Cint, Ptr{ImPlotAxis}), axis_flag, axis)
+end
+
+function UpdateTransformCache()
+    ccall((:ImPlot_UpdateTransformCache, libcimgui), Cvoid, ())
+end
+
+function GetCurrentScale()
+    ccall((:ImPlot_GetCurrentScale, libcimgui), ImPlotScale, ())
+end
+
+function FitThisFrame()
+    ccall((:ImPlot_FitThisFrame, libcimgui), Bool, ())
+end
+
+function FitPoint(p)
+    ccall((:ImPlot_FitPoint, libcimgui), Cvoid, (ImPlotPoint,), p)
+end
+
+function RangesOverlap(r1, r2)
+    ccall((:ImPlot_RangesOverlap, libcimgui), Bool, (ImPlotRange, ImPlotRange), r1, r2)
+end
+
+function PushLinkedAxis(axis)
+    ccall((:ImPlot_PushLinkedAxis, libcimgui), Cvoid, (Ptr{ImPlotAxis},), axis)
+end
+
+function PullLinkedAxis(axis)
+    ccall((:ImPlot_PullLinkedAxis, libcimgui), Cvoid, (Ptr{ImPlotAxis},), axis)
+end
+
+function ShowAxisContextMenu(axis, equal_axis, time_allowed)
+    ccall((:ImPlot_ShowAxisContextMenu, libcimgui), Cvoid, (Ptr{ImPlotAxis}, Ptr{ImPlotAxis}, Bool), axis, equal_axis, time_allowed)
+end
+
+function GetLocationPos(pOut, outer_rect, inner_size, location, pad)
+    ccall((:ImPlot_GetLocationPos, libcimgui), Cvoid, (Ptr{ImVec2}, ImRect, ImVec2, ImPlotLocation, ImVec2), pOut, outer_rect, inner_size, location, pad)
+end
+
+function CalcLegendSize(pOut, plot, pad, spacing, orientation)
+    ccall((:ImPlot_CalcLegendSize, libcimgui), Cvoid, (Ptr{ImVec2}, Ptr{ImPlotPlot}, ImVec2, ImVec2, ImPlotOrientation), pOut, plot, pad, spacing, orientation)
+end
+
+function ShowLegendEntries(plot, legend_bb, interactable, pad, spacing, orientation, DrawList)
+    ccall((:ImPlot_ShowLegendEntries, libcimgui), Cvoid, (Ptr{ImPlotPlot}, ImRect, Bool, ImVec2, ImVec2, ImPlotOrientation, Ptr{ImDrawList}), plot, legend_bb, interactable, pad, spacing, orientation, DrawList)
+end
+
+function ShowAltLegend(title_id, orientation, size, interactable)
+    ccall((:ImPlot_ShowAltLegend, libcimgui), Cvoid, (Cstring, ImPlotOrientation, ImVec2, Bool), title_id, orientation, size, interactable)
+end
+
+function LabelTickDefault(tick, buffer)
+    ccall((:ImPlot_LabelTickDefault, libcimgui), Cvoid, (Ptr{ImPlotTick}, Ptr{ImGuiTextBuffer}), tick, buffer)
+end
+
+function LabelTickScientific(tick, buffer)
+    ccall((:ImPlot_LabelTickScientific, libcimgui), Cvoid, (Ptr{ImPlotTick}, Ptr{ImGuiTextBuffer}), tick, buffer)
+end
+
+function LabelTickTime(tick, buffer, t, fmt)
+    ccall((:ImPlot_LabelTickTime, libcimgui), Cvoid, (Ptr{ImPlotTick}, Ptr{ImGuiTextBuffer}, ImPlotTime, ImPlotDateTimeFmt), tick, buffer, t, fmt)
+end
+
+function AddTicksDefault(range, nMajor, nMinor, ticks)
+    ccall((:ImPlot_AddTicksDefault, libcimgui), Cvoid, (ImPlotRange, Cint, Cint, Ptr{ImPlotTickCollection}), range, nMajor, nMinor, ticks)
+end
+
+function AddTicksLogarithmic(range, nMajor, ticks)
+    ccall((:ImPlot_AddTicksLogarithmic, libcimgui), Cvoid, (ImPlotRange, Cint, Ptr{ImPlotTickCollection}), range, nMajor, ticks)
+end
+
+function AddTicksTime(range, plot_width, ticks)
+    ccall((:ImPlot_AddTicksTime, libcimgui), Cvoid, (ImPlotRange, Cfloat, Ptr{ImPlotTickCollection}), range, plot_width, ticks)
+end
+
+function AddTicksCustom(values, labels, n, ticks)
+    ccall((:ImPlot_AddTicksCustom, libcimgui), Cvoid, (Ptr{Cdouble}, Ptr{Cstring}, Cint, Ptr{ImPlotTickCollection}), values, labels, n, ticks)
+end
+
+function LabelAxisValue(axis, ticks, value, buff, size)
+    ccall((:ImPlot_LabelAxisValue, libcimgui), Cint, (ImPlotAxis, ImPlotTickCollection, Cdouble, Cstring, Cint), axis, ticks, value, buff, size)
+end
+
+function GetItemData()
+    ccall((:ImPlot_GetItemData, libcimgui), Ptr{ImPlotNextItemData}, ())
+end
+
+function IsColorAutoVec4(col)
+    ccall((:ImPlot_IsColorAutoVec4, libcimgui), Bool, (ImVec4,), col)
+end
+
+function IsColorAutoPlotCol(idx)
+    ccall((:ImPlot_IsColorAutoPlotCol, libcimgui), Bool, (ImPlotCol,), idx)
+end
+
+function GetAutoColor(pOut, idx)
+    ccall((:ImPlot_GetAutoColor, libcimgui), Cvoid, (Ptr{ImVec4}, ImPlotCol), pOut, idx)
+end
+
+function GetStyleColorVec4(pOut, idx)
+    ccall((:ImPlot_GetStyleColorVec4, libcimgui), Cvoid, (Ptr{ImVec4}, ImPlotCol), pOut, idx)
+end
+
+function GetStyleColorU32(idx)
+    ccall((:ImPlot_GetStyleColorU32, libcimgui), ImU32, (ImPlotCol,), idx)
+end
+
+function GetColormap(colormap, size_out)
+    ccall((:ImPlot_GetColormap, libcimgui), Ptr{ImVec4}, (ImPlotColormap, Ptr{Cint}), colormap, size_out)
+end
+
+function LerpColormapVec4Ptr(pOut, colormap, size, t)
+    ccall((:ImPlot_LerpColormapVec4Ptr, libcimgui), Cvoid, (Ptr{ImVec4}, Ptr{ImVec4}, Cint, Cfloat), pOut, colormap, size, t)
+end
+
+function ResampleColormap(colormap_in, size_in, colormap_out, size_out)
+    ccall((:ImPlot_ResampleColormap, libcimgui), Cvoid, (Ptr{ImVec4}, Cint, Ptr{ImVec4}, Cint), colormap_in, size_in, colormap_out, size_out)
+end
+
+function AddTextVertical(DrawList, pos, col, text_begin, text_end)
+    ccall((:ImPlot_AddTextVertical, libcimgui), Cvoid, (Ptr{ImDrawList}, ImVec2, ImU32, Cstring, Cstring), DrawList, pos, col, text_begin, text_end)
+end
+
+function CalcTextSizeVertical(pOut, text)
+    ccall((:ImPlot_CalcTextSizeVertical, libcimgui), Cvoid, (Ptr{ImVec2}, Cstring), pOut, text)
+end
+
+function CalcTextColor(bg)
+    ccall((:ImPlot_CalcTextColor, libcimgui), ImU32, (ImVec4,), bg)
+end
+
+function ClampLabelPos(pOut, pos, size, Min, Max)
+    ccall((:ImPlot_ClampLabelPos, libcimgui), Cvoid, (Ptr{ImVec2}, ImVec2, ImVec2, ImVec2, ImVec2), pOut, pos, size, Min, Max)
+end
+
+function NiceNum(x, round)
+    ccall((:ImPlot_NiceNum, libcimgui), Cdouble, (Cdouble, Bool), x, round)
+end
+
+function OrderOfMagnitude(val)
+    ccall((:ImPlot_OrderOfMagnitude, libcimgui), Cint, (Cdouble,), val)
+end
+
+function OrderToPrecision(order)
+    ccall((:ImPlot_OrderToPrecision, libcimgui), Cint, (Cint,), order)
+end
+
+function Precision(val)
+    ccall((:ImPlot_Precision, libcimgui), Cint, (Cdouble,), val)
+end
+
+function Intersection(pOut, a1, a2, b1, b2)
+    ccall((:ImPlot_Intersection, libcimgui), Cvoid, (Ptr{ImVec2}, ImVec2, ImVec2, ImVec2, ImVec2), pOut, a1, a2, b1, b2)
+end
+
+function FillRangeVector_FloatPtr(buffer, n, vmin, vmax)
+    ccall((:ImPlot_FillRangeVector_FloatPtr, libcimgui), Cvoid, (Ptr{ImVector_float}, Cint, Cfloat, Cfloat), buffer, n, vmin, vmax)
+end
+
+function FillRangeVector_doublePtr(buffer, n, vmin, vmax)
+    ccall((:ImPlot_FillRangeVector_doublePtr, libcimgui), Cvoid, (Ptr{ImVector_double}, Cint, Cdouble, Cdouble), buffer, n, vmin, vmax)
+end
+
+function FillRangeVector_S8Ptr(buffer, n, vmin, vmax)
+    ccall((:ImPlot_FillRangeVector_S8Ptr, libcimgui), Cvoid, (Ptr{ImVector_ImS8}, Cint, ImS8, ImS8), buffer, n, vmin, vmax)
+end
+
+function FillRangeVector_U8Ptr(buffer, n, vmin, vmax)
+    ccall((:ImPlot_FillRangeVector_U8Ptr, libcimgui), Cvoid, (Ptr{ImVector_ImU8}, Cint, ImU8, ImU8), buffer, n, vmin, vmax)
+end
+
+function FillRangeVector_S16Ptr(buffer, n, vmin, vmax)
+    ccall((:ImPlot_FillRangeVector_S16Ptr, libcimgui), Cvoid, (Ptr{ImVector_ImS16}, Cint, ImS16, ImS16), buffer, n, vmin, vmax)
+end
+
+function FillRangeVector_U16Ptr(buffer, n, vmin, vmax)
+    ccall((:ImPlot_FillRangeVector_U16Ptr, libcimgui), Cvoid, (Ptr{ImVector_ImU16}, Cint, ImU16, ImU16), buffer, n, vmin, vmax)
+end
+
+function FillRangeVector_S32Ptr(buffer, n, vmin, vmax)
+    ccall((:ImPlot_FillRangeVector_S32Ptr, libcimgui), Cvoid, (Ptr{ImVector_ImS32}, Cint, ImS32, ImS32), buffer, n, vmin, vmax)
+end
+
+function FillRangeVector_U32Ptr(buffer, n, vmin, vmax)
+    ccall((:ImPlot_FillRangeVector_U32Ptr, libcimgui), Cvoid, (Ptr{ImVector_ImU32}, Cint, ImU32, ImU32), buffer, n, vmin, vmax)
+end
+
+function FillRangeVector_S64Ptr(buffer, n, vmin, vmax)
+    ccall((:ImPlot_FillRangeVector_S64Ptr, libcimgui), Cvoid, (Ptr{ImVector_ImS64}, Cint, ImS64, ImS64), buffer, n, vmin, vmax)
+end
+
+function FillRangeVector_U64Ptr(buffer, n, vmin, vmax)
+    ccall((:ImPlot_FillRangeVector_U64Ptr, libcimgui), Cvoid, (Ptr{ImVector_ImU64}, Cint, ImU64, ImU64), buffer, n, vmin, vmax)
+end
+
+function OffsetAndStrideFloatPtr(data, idx, count, offset, stride)
+    ccall((:ImPlot_OffsetAndStrideFloatPtr, libcimgui), Cfloat, (Ptr{Cfloat}, Cint, Cint, Cint, Cint), data, idx, count, offset, stride)
+end
+
+function OffsetAndStridedoublePtr(data, idx, count, offset, stride)
+    ccall((:ImPlot_OffsetAndStridedoublePtr, libcimgui), Cdouble, (Ptr{Cdouble}, Cint, Cint, Cint, Cint), data, idx, count, offset, stride)
+end
+
+function OffsetAndStrideS8Ptr(data, idx, count, offset, stride)
+    ccall((:ImPlot_OffsetAndStrideS8Ptr, libcimgui), ImS8, (Ptr{ImS8}, Cint, Cint, Cint, Cint), data, idx, count, offset, stride)
+end
+
+function OffsetAndStrideU8Ptr(data, idx, count, offset, stride)
+    ccall((:ImPlot_OffsetAndStrideU8Ptr, libcimgui), ImU8, (Ptr{ImU8}, Cint, Cint, Cint, Cint), data, idx, count, offset, stride)
+end
+
+function OffsetAndStrideS16Ptr(data, idx, count, offset, stride)
+    ccall((:ImPlot_OffsetAndStrideS16Ptr, libcimgui), ImS16, (Ptr{ImS16}, Cint, Cint, Cint, Cint), data, idx, count, offset, stride)
+end
+
+function OffsetAndStrideU16Ptr(data, idx, count, offset, stride)
+    ccall((:ImPlot_OffsetAndStrideU16Ptr, libcimgui), ImU16, (Ptr{ImU16}, Cint, Cint, Cint, Cint), data, idx, count, offset, stride)
+end
+
+function OffsetAndStrideS32Ptr(data, idx, count, offset, stride)
+    ccall((:ImPlot_OffsetAndStrideS32Ptr, libcimgui), ImS32, (Ptr{ImS32}, Cint, Cint, Cint, Cint), data, idx, count, offset, stride)
+end
+
+function OffsetAndStrideU32Ptr(data, idx, count, offset, stride)
+    ccall((:ImPlot_OffsetAndStrideU32Ptr, libcimgui), ImU32, (Ptr{ImU32}, Cint, Cint, Cint, Cint), data, idx, count, offset, stride)
+end
+
+function OffsetAndStrideS64Ptr(data, idx, count, offset, stride)
+    ccall((:ImPlot_OffsetAndStrideS64Ptr, libcimgui), ImS64, (Ptr{ImS64}, Cint, Cint, Cint, Cint), data, idx, count, offset, stride)
+end
+
+function OffsetAndStrideU64Ptr(data, idx, count, offset, stride)
+    ccall((:ImPlot_OffsetAndStrideU64Ptr, libcimgui), ImU64, (Ptr{ImU64}, Cint, Cint, Cint, Cint), data, idx, count, offset, stride)
+end
+
+function IsLeapYear(year)
+    ccall((:ImPlot_IsLeapYear, libcimgui), Bool, (Cint,), year)
+end
+
+function GetDaysInMonth(year, month)
+    ccall((:ImPlot_GetDaysInMonth, libcimgui), Cint, (Cint, Cint), year, month)
+end
+
+function MkGmtTime(ptm)
+    ccall((:ImPlot_MkGmtTime, libcimgui), ImPlotTime, (Ptr{Ctm},), ptm)
+end
+
+function GetGmtTime()
+    ccall((:ImPlot_GetGmtTime, libcimgui), Ptr{Cint}, ())
+end
+
+function MkLocTime(ptm)
+    ccall((:ImPlot_MkLocTime, libcimgui), ImPlotTime, (Ptr{Ctm},), ptm)
+end
+
+function GetLocTime()
+    ccall((:ImPlot_GetLocTime, libcimgui), Ptr{Cint}, ())
+end
+
+function MakeTime(year, month, day, hour, min, sec, us)
+    ccall((:ImPlot_MakeTime, libcimgui), ImPlotTime, (Cint, Cint, Cint, Cint, Cint, Cint, Cint), year, month, day, hour, min, sec, us)
+end
+
+function GetYear(t)
+    ccall((:ImPlot_GetYear, libcimgui), Cint, (ImPlotTime,), t)
+end
+
+function AddTime(t, unit, count)
+    ccall((:ImPlot_AddTime, libcimgui), ImPlotTime, (ImPlotTime, ImPlotTimeUnit, Cint), t, unit, count)
+end
+
+function FloorTime(t, unit)
+    ccall((:ImPlot_FloorTime, libcimgui), ImPlotTime, (ImPlotTime, ImPlotTimeUnit), t, unit)
+end
+
+function CeilTime(t, unit)
+    ccall((:ImPlot_CeilTime, libcimgui), ImPlotTime, (ImPlotTime, ImPlotTimeUnit), t, unit)
+end
+
+function RoundTime(t, unit)
+    ccall((:ImPlot_RoundTime, libcimgui), ImPlotTime, (ImPlotTime, ImPlotTimeUnit), t, unit)
+end
+
+function CombineDateTime(date_part, time_part)
+    ccall((:ImPlot_CombineDateTime, libcimgui), ImPlotTime, (ImPlotTime, ImPlotTime), date_part, time_part)
+end
+
+function FormatTime(t, buffer, size, fmt, use_24_hr_clk)
+    ccall((:ImPlot_FormatTime, libcimgui), Cint, (ImPlotTime, Cstring, Cint, ImPlotTimeFmt, Bool), t, buffer, size, fmt, use_24_hr_clk)
+end
+
+function FormatDate(t, buffer, size, fmt, use_iso_8601)
+    ccall((:ImPlot_FormatDate, libcimgui), Cint, (ImPlotTime, Cstring, Cint, ImPlotDateFmt, Bool), t, buffer, size, fmt, use_iso_8601)
+end
+
+function FormatDateTime(t, buffer, size, fmt)
+    ccall((:ImPlot_FormatDateTime, libcimgui), Cint, (ImPlotTime, Cstring, Cint, ImPlotDateTimeFmt), t, buffer, size, fmt)
+end
+
+function ShowDatePicker(id, level, t, t1, t2)
+    ccall((:ImPlot_ShowDatePicker, libcimgui), Bool, (Cstring, Ptr{Cint}, Ptr{ImPlotTime}, Ptr{ImPlotTime}, Ptr{ImPlotTime}), id, level, t, t1, t2)
+end
+
+function ShowTimePicker(id, t)
+    ccall((:ImPlot_ShowTimePicker, libcimgui), Bool, (Cstring, Ptr{ImPlotTime}), id, t)
+end
+
+function PlotRectsFloatPtr(label_id, xs, ys, count, offset, stride)
+    ccall((:ImPlot_PlotRectsFloatPtr, libcimgui), Cvoid, (Cstring, Ptr{Cfloat}, Ptr{Cfloat}, Cint, Cint, Cint), label_id, xs, ys, count, offset, stride)
+end
+
+function PlotRectsdoublePtr(label_id, xs, ys, count, offset, stride)
+    ccall((:ImPlot_PlotRectsdoublePtr, libcimgui), Cvoid, (Cstring, Ptr{Cdouble}, Ptr{Cdouble}, Cint, Cint, Cint), label_id, xs, ys, count, offset, stride)
+end
+
+function PlotRectsFnPlotPoIntPtr(label_id, getter, data, count, offset)
+    ccall((:ImPlot_PlotRectsFnPlotPoIntPtr, libcimgui), Cvoid, (Cstring, Ptr{Cvoid}, Ptr{Cvoid}, Cint, Cint), label_id, getter, data, count, offset)
+end
+
 function PlotLineG(label_id, getter, data, count, offset)
-    ccall((:ImPlot_PlotLineG, libcimgui), Cvoid, (Cstring, Ptr{Cvoid}, Ptr{Cvoid}, Cint, Cint), label_id, getter, data, count, offset)
+    ccall((:ImPlot_PlotLineG, libcimgui), Cvoid, (Cstring, ImPlotPoint_getter, Ptr{Cvoid}, Cint, Cint), label_id, getter, data, count, offset)
 end
 
 function PlotScatterG(label_id, getter, data, count, offset)
-    ccall((:ImPlot_PlotScatterG, libcimgui), Cvoid, (Cstring, Ptr{Cvoid}, Ptr{Cvoid}, Cint, Cint), label_id, getter, data, count, offset)
+    ccall((:ImPlot_PlotScatterG, libcimgui), Cvoid, (Cstring, ImPlotPoint_getter, Ptr{Cvoid}, Cint, Cint), label_id, getter, data, count, offset)
 end
 
 function PlotShadedG(label_id, getter1, data1, getter2, data2, count, offset)
-    ccall((:ImPlot_PlotShadedG, libcimgui), Cvoid, (Cstring, Ptr{Cvoid}, Ptr{Cvoid}, Ptr{Cvoid}, Ptr{Cvoid}, Cint, Cint), label_id, getter1, data1, getter2, data2, count, offset)
+    ccall((:ImPlot_PlotShadedG, libcimgui), Cvoid, (Cstring, ImPlotPoint_getter, Ptr{Cvoid}, ImPlotPoint_getter, Ptr{Cvoid}, Cint, Cint), label_id, getter1, data1, getter2, data2, count, offset)
 end
 
 function PlotBarsG(label_id, getter, data, count, width, offset)
-    ccall((:ImPlot_PlotBarsG, libcimgui), Cvoid, (Cstring, Ptr{Cvoid}, Ptr{Cvoid}, Cint, Cdouble, Cint), label_id, getter, data, count, width, offset)
+    ccall((:ImPlot_PlotBarsG, libcimgui), Cvoid, (Cstring, ImPlotPoint_getter, Ptr{Cvoid}, Cint, Cdouble, Cint), label_id, getter, data, count, width, offset)
 end
 
 function PlotBarsHG(label_id, getter, data, count, height, offset)
-    ccall((:ImPlot_PlotBarsHG, libcimgui), Cvoid, (Cstring, Ptr{Cvoid}, Ptr{Cvoid}, Cint, Cdouble, Cint), label_id, getter, data, count, height, offset)
+    ccall((:ImPlot_PlotBarsHG, libcimgui), Cvoid, (Cstring, ImPlotPoint_getter, Ptr{Cvoid}, Cint, Cdouble, Cint), label_id, getter, data, count, height, offset)
 end
 
 function PlotDigitalG(label_id, getter, data, count, offset)
-    ccall((:ImPlot_PlotDigitalG, libcimgui), Cvoid, (Cstring, Ptr{Cvoid}, Ptr{Cvoid}, Cint, Cint), label_id, getter, data, count, offset)
+    ccall((:ImPlot_PlotDigitalG, libcimgui), Cvoid, (Cstring, ImPlotPoint_getter, Ptr{Cvoid}, Cint, Cint), label_id, getter, data, count, offset)
 end
