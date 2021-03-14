@@ -11,7 +11,7 @@ const CIMGUIPLOT_INCLUDED = nothing
 const ImPlotMarker = Cint
 
 struct ImPlotNextItemData
-    Colors::NTuple{5,ImVec4}
+    Colors::NTuple{5, ImVec4}
     LineWeight::Cfloat
     Marker::ImPlotMarker
     MarkerSize::Cfloat
@@ -117,19 +117,19 @@ end
 
 struct ImPlotNextPlotData
     XRangeCond::ImGuiCond
-    YRangeCond::NTuple{3,ImGuiCond}
+    YRangeCond::NTuple{3, ImGuiCond}
     X::ImPlotRange
-    Y::NTuple{3,ImPlotRange}
+    Y::NTuple{3, ImPlotRange}
     HasXRange::Bool
-    HasYRange::NTuple{3,Bool}
+    HasYRange::NTuple{3, Bool}
     ShowDefaultTicksX::Bool
-    ShowDefaultTicksY::NTuple{3,Bool}
+    ShowDefaultTicksY::NTuple{3, Bool}
     FitX::Bool
-    FitY::NTuple{3,Bool}
+    FitY::NTuple{3, Bool}
     LinkedXmin::Ptr{Cdouble}
     LinkedXmax::Ptr{Cdouble}
-    LinkedYmin::NTuple{3,Ptr{Cdouble}}
-    LinkedYmax::NTuple{3,Ptr{Cdouble}}
+    LinkedYmin::NTuple{3, Ptr{Cdouble}}
+    LinkedYmax::NTuple{3, Ptr{Cdouble}}
 end
 
 const ImPlotFlags = Cint
@@ -198,7 +198,7 @@ struct ImPlotPlot
     Flags::ImPlotFlags
     PreviousFlags::ImPlotFlags
     XAxis::ImPlotAxis
-    YAxis::NTuple{3,ImPlotAxis}
+    YAxis::NTuple{3, ImPlotAxis}
     LegendData::ImPlotLegendData
     Items::ImPool_ImPlotItem
     SelectStart::ImVec2
@@ -270,7 +270,7 @@ struct ImPlotStyle
     FitPadding::ImVec2
     PlotDefaultSize::ImVec2
     PlotMinSize::ImVec2
-    Colors::NTuple{24,ImVec4}
+    Colors::NTuple{24, ImVec4}
     AntiAliasedLines::Bool
     UseLocalTime::Bool
     UseISO8601::Bool
@@ -301,18 +301,6 @@ end
 
 const ImPlotScale = Cint
 
-struct ImVector_ImGuiColorMod
-    Size::Cint
-    Capacity::Cint
-    Data::Ptr{ImGuiColorMod}
-end
-
-struct ImVector_ImGuiStyleMod
-    Size::Cint
-    Capacity::Cint
-    Data::Ptr{ImGuiStyleMod}
-end
-
 struct ImVector_ImPlotColormapMod
     Size::Cint
     Capacity::Cint
@@ -325,22 +313,22 @@ struct ImPlotContext
     CurrentItem::Ptr{ImPlotItem}
     PreviousItem::Ptr{ImPlotItem}
     XTicks::ImPlotTickCollection
-    YTicks::NTuple{3,ImPlotTickCollection}
-    YAxisReference::NTuple{3,Cfloat}
+    YTicks::NTuple{3, ImPlotTickCollection}
+    YAxisReference::NTuple{3, Cfloat}
     Annotations::ImPlotAnnotationCollection
-    Scales::NTuple{3,ImPlotScale}
-    PixelRange::NTuple{3,ImRect}
+    Scales::NTuple{3, ImPlotScale}
+    PixelRange::NTuple{3, ImRect}
     Mx::Cdouble
-    My::NTuple{3,Cdouble}
+    My::NTuple{3, Cdouble}
     LogDenX::Cdouble
-    LogDenY::NTuple{3,Cdouble}
+    LogDenY::NTuple{3, Cdouble}
     ExtentsX::ImPlotRange
-    ExtentsY::NTuple{3,ImPlotRange}
+    ExtentsY::NTuple{3, ImPlotRange}
     FitThisFrame::Bool
     FitX::Bool
-    FitY::NTuple{3,Bool}
+    FitY::NTuple{3, Bool}
     RenderX::Bool
-    RenderY::NTuple{3,Bool}
+    RenderY::NTuple{3, Bool}
     ChildWindowMade::Bool
     Style::ImPlotStyle
     ColorModifiers::ImVector_ImGuiColorMod
@@ -355,7 +343,7 @@ struct ImPlotContext
     NextPlotData::ImPlotNextPlotData
     NextItemData::ImPlotNextItemData
     InputMap::ImPlotInputMap
-    MousePos::NTuple{3,ImPlotPoint}
+    MousePos::NTuple{3, ImPlotPoint}
 end
 
 const ImPlotCol = Cint
@@ -392,12 +380,6 @@ struct ImVector_ImU16
     Size::Cint
     Capacity::Cint
     Data::Ptr{ImU16}
-end
-
-struct ImVector_ImU32
-    Size::Cint
-    Capacity::Cint
-    Data::Ptr{ImU32}
 end
 
 struct ImVector_ImU64

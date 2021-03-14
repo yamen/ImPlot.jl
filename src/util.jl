@@ -1,5 +1,5 @@
 
-import .LibCImPlot: IsPlotHovered, GetPlotMousePos, GetPlotLimits, IsPlotQueried, GetPlotQuery
+import .LibCImPlot: IsPlotHovered, GetPlotMousePos, GetPlotLimits, IsPlotQueried, GetPlotQuery, LinkNextPlotLimits
 import .LibCImPlot: SetNextPlotLimits, SetNextPlotLimitsX, SetNextPlotLimitsY, SetPlotYAxis
 import .LibCImPlot: ShowColormapScale, PushPlotClipRect, PopPlotClipRect
 
@@ -53,10 +53,26 @@ function GetPlotSize()
     return out[]
 end
 
+function GetPlotLimits(y_axis::Integer=-1)
+    out = Ref{ImPlotLimits}()
+    LibCImPlot.GetPlotLimits(out, y_axis)
+    return out[]
+end
+
 function PlotToPixels(plt::ImPlotPoint, y_axis::Integer=-1)
     out = Ref{ImVec2}()
-    LibCImPlot.PlotToPixels(out, plt, Cint(y_axis))
+    LibCImPlot.PlotToPixelsPlotPoInt(out, plt, Cint(y_axis))
     return out[]
+end
+
+function PlotToPixels(x::Float64, y::Float64, y_axis::Integer=-1)
+    out = Ref{ImVec2}()
+    LibCImPlot.PlotToPixelsdouble(out, x, y, Cint(y_axis))
+    return out[]
+end
+
+function PlotToPixels(out::Ref{ImVec2}, x::Float64, y::Float64, y_axis::Integer=-1)
+    LibCImPlot.PlotToPixelsdouble(out, x, y, Cint(y_axis))
 end
 
 

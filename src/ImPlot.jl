@@ -6,6 +6,7 @@ include("libcimplot/libcimplot.jl")
 
 # Types
 using .LibCImPlot
+
 using CImGui.LibCImGui
 
 # Export plot flags 
@@ -40,5 +41,6 @@ include("other.jl")
 include("util.jl")
 include("color.jl")
 include("styling.jl")
+include("internals.jl")
 
 end # module

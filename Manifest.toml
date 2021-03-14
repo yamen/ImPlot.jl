@@ -22,9 +22,11 @@ version = "1.81.0"
 
 [[CImGui_jll]]
 deps = ["Libdl", "Pkg"]
-path = "C:\\Users\\yamen\\.julia\\dev\\CImGui_jll"
+git-tree-sha1 = "0097d12c5fb0ae9ba8945b0cf820978fad3aa0dc"
+repo-rev = "master"
+repo-url = "https://github.com/yamen/CImGui_jll.jl"
 uuid = "7dd61d3b-0da5-5c94-bbf9-a0296c6e3925"
-version = "1.81.4+0"
+version = "1.81.5+0"
 
 [[CSyntax]]
 deps = ["CEnum"]
